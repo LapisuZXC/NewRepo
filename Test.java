@@ -1,9 +1,8 @@
 public class Test {
-    public static void main(String[] args){}
-
+    public static void main(String[] args){
         
-
-    public static void I_HATE_JAVA(){
-        System.out.println("IHATEJAVAIHATEJAVAIHATEJAVAIHATEJAVAIHATEJAVAIHATEJAVAIHATEJAVAIHATEJAVAIHATEJAVAIHATEJAVAIHATEJAVAIHATEJAVAIHATEJAVAIHATEJAVAIHATEJAVAIHATEJAVAIHATEJAVAIHATEJAVA");
+}
+    public static void ILOVEPYTHON(){
+        System.out.println("PYTHONPYTHONPYTHONPYTHONPYTHONPYTHONPYTHONPYTHONPYTHONPYTHONPYTHONPYTHON");
     }
 }
