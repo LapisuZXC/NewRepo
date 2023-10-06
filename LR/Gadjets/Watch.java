@@ -1,31 +1,42 @@
 package Gadjets;
 
 public class Watch extends Gadgets {
-    private String displayType;
-    private String strapMaterial;
+    private static int watchCount = 0; //статический счётчик
+    private String displayType; // приватное поле displayType
+    private String strapMaterial; // приватное поле strapMaterial
 
     public Watch(String brand, String model, double price, String displayType, String strapMaterial) {
         super(brand, model, price);
         this.displayType = displayType;
         this.strapMaterial = strapMaterial;
+        watchCount++; // увеличение значения счетчика при создании объекта
     }
 
+    public static int getWatchCount() {
+        return watchCount;
+    }
+
+    //Геттер displayType
     public String getDisplayType() {
         return displayType;
     }
 
+    //Сеттер displayType
     public void setDisplayType(String displayType) {
         this.displayType = displayType;
     }
 
+    //Геттер strapMateria
     public String getStrapMaterial() {
         return strapMaterial;
     }
 
+    //Сеттер strapMateria
     public void setStrapMaterial(String strapMaterial) {
         this.strapMaterial = strapMaterial;
     }
 
+    // Переопределение метода displayInfo() из суперкласса 
     @Override
     public void displayInfo() {
         System.out.println("Brand: " + getBrand());
@@ -33,5 +44,6 @@ public class Watch extends Gadgets {
         System.out.println("Price: $" + getPrice());
         System.out.println("Display Type: " + getDisplayType());
         System.out.println("Strap Material: " + getStrapMaterial());
+        System.out.println("Wathces:" + getWatchCount());
     }
 }
