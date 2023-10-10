@@ -1,8 +1,9 @@
-package LR1;
-public class Primes {
+package LR.LR1;
+
+public class Primes{
     public static void main(String[] args) {
         for (int i = 3; i<101; i++){
-            if (isPrime(i) == true){
+            if (isPrime(i)){
                 System.out.println(i);
             }
         }

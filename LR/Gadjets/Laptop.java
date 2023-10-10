@@ -3,10 +3,10 @@ package Gadjets;
 public class Laptop extends Gadgets {
     private String processor; // Приватное поле processor
     private int ramSize; // Приватное поле ramSize
-
+    Laptop(){processor = "null"; ramSize = 0;}
     // Конструктор с параметрами brand, model, price, processor и ramSize
     public Laptop(String brand, String model, double price, String processor, int ramSize) {
-        super(brand, model, price); // Вызов конструктора суперкласса 
+        super(brand,model, price); // Вызов конструктора суперкласса 
         this.processor = processor;
         this.ramSize = ramSize;
     }

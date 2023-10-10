@@ -1,0 +1,8 @@
+#igrone compiled code
+*.class
+#ignore temporal file
+*.tmp 
+#ignore IDE file
+.idea/
+#ignore target
+/target/

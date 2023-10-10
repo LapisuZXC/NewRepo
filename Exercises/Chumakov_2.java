@@ -1,4 +1,5 @@
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Random;
@@ -30,6 +31,14 @@ public class Chumakov_2 {
         System.out.println(pseudoHash(10));
         System.out.println(pseudoHash(0));
         System.out.println(botHelper("Hello, I’m under the water, please help me"));
+        System.out.println(botHelper("Hello, I’m under the water, please helps me"));
+        System.out.println(botHelper("Hello, I’m under the water, please helper me"));
+        System.out.println(botHelper("Hello, I’m under the water, please help, me"));
+        System.out.println(botHelper("help me"));
+        System.out.println(botHelper("help"));
+        //System.out.println(botHelper("help"));
+        //System.out.println(botHelper("help"));
+        //System.out.println(botHelper("help"));
         System.out.println(botHelper("Two pepperoni pizzas please"));
         System.out.println(isAnagram("listen", "netsil"));
         System.out.println(isAnagram("eleven plus two", "twelve plus one"));
@@ -89,16 +98,12 @@ public class Chumakov_2 {
         return false;
     }
 
-    public static int[] indexMult(int[] int_array){
-        int index = 0;
-        for (int i = 0; i < int_array.length; i++){
-
-            int new_value = int_array[i] * index;
-            int_array[i] = new_value;
-            index+= 1;
+    public static String indexMult(int[] numbers) {
+        int[] multipliedArray = new int[numbers.length];
+        for (int i = 0; i < numbers.length; i++) {
+            multipliedArray[i] = numbers[i] * i;
         }
-        
-        return int_array;
+        return Arrays.toString(multipliedArray);
     }
 
     public static String reverse(String str){
@@ -155,17 +160,21 @@ public class Chumakov_2 {
     }
 
     public static String botHelper(String message){
-        if (message.contains("help")){
+        message.toLowerCase();
+        if (message.replaceAll("\\p{Punct}"," ").contains(" help ") || message..replaceAll("\\p{Punct}"," ").startsWith("help ", 0)   || message.replaceAll("\\p{Punct}"," ").endsWith(" help") || message.equals("help")) {
             return "Calling for a staff member";
         }
         else{
             return "Keep waiting";
         }
     }
-    public static boolean isAnagram(String str_1,String str_2){
-        if (str_1.equalsIgnoreCase(reverse(str_2))){
-            return true;
-        }
-        return false;
+    public static boolean isAnagram(String input1, String input2) {
+        input1 = input1.replaceAll("\\s", "").toLowerCase();
+        input2 = input2.replaceAll("\\s", "").toLowerCase();
+        char[] charArray1 = input1.toCharArray(); 
+        char[] charArray2 = input2.toCharArray();
+        Arrays.sort(charArray1); 
+        Arrays.sort(charArray2);
+        return Arrays.equals(charArray1, charArray2); 
     }
 }

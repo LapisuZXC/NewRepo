@@ -4,9 +4,9 @@ public abstract class Gadgets {
     private String brand; // Приватное поле brand
     private String model; // Приватное поле model
     private double price; // Приватное поле price
-
+    Gadgets() {brand = "not defined" ; model = "not defined"; price = 0;}
     // Конструктор с параметрами brand, model и price
-    public Gadgets(String brand, String model, double price) {
+    public Gadgets(String brand, String model, double price){
         this.brand = brand;
         this.model = model;
         this.price = price;
@@ -21,7 +21,7 @@ public abstract class Gadgets {
     public void setBrand(String brand) {
         this.brand = brand;
     }
-
+    
     // Геттер для поля model
     public String getModel() {
         return model;

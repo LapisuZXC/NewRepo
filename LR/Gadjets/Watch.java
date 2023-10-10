@@ -4,9 +4,9 @@ public class Watch extends Gadgets {
     private static int watchCount = 0; //статический счётчик
     private String displayType; // приватное поле displayType
     private String strapMaterial; // приватное поле strapMaterial
-
+    Watch(){displayType = "null";strapMaterial = "null";}
     public Watch(String brand, String model, double price, String displayType, String strapMaterial) {
-        super(brand, model, price);
+        super(brand,model, price);
         this.displayType = displayType;
         this.strapMaterial = strapMaterial;
         watchCount++; // увеличение значения счетчика при создании объекта
