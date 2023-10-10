@@ -181,10 +181,10 @@ public class Chumakov_3 {
         // Возвращаем гласную с наибольшим количеством встреч
         return vowels[maxIndex];
     }
-    public static int[][] dataScience(int[][] arr) {
+    public static String dataScience(int[][] arr) {
         int n = arr.length;  // number of arrays
         int m = arr[0].length;  // length of arrays
-
+        String[][] result = new String[n]z
         // Calculate the arithmetic mean for each column, except the last one
         int[] columnSums = new int[m];
         for (int i = 0; i < n; i++) {
@@ -202,10 +202,10 @@ public class Chumakov_3 {
 
         // Replace the n-th element of the n-th array with the corresponding arithmetic mean
         for (int j = 0; j < m; j++) {
-            arr[n - 1][j] = averages[j];
+            arr[n - 1][j] = Arrays.toString(averages[j]);
         }
-
-        return arr;
+        
+        return Arrays.toString(arr);
     }
 
 }

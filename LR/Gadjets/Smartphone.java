@@ -3,9 +3,9 @@ package Gadjets;
 public class Smartphone extends Gadgets {
     private String operatingSystem; //Приватное поле operatingSystem
     private int storageCapacity; //Приватное поле storageCapacity
-
+    Smartphone(){operatingSystem = "null"; storageCapacity = 0;}
     public Smartphone(String brand, String model, double price, String operatingSystem, int storageCapacity) {
-        super(brand, model, price); // Вызов конструктора суперкласса 
+        super(brand,model, price); // Вызов конструктора суперкласса 
         this.operatingSystem = operatingSystem;
         this.storageCapacity = storageCapacity;
     }
