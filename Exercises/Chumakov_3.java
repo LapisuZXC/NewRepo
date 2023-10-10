@@ -2,7 +2,9 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.lang.Math;
 public class Chumakov_3 {
     
 
@@ -55,16 +57,19 @@ public class Chumakov_3 {
         return sb.toString();
     }
     public static String stringTransform(String input) {
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < input.length(); i++) {
-            result.append(input.charAt(i));
-            if (i < input.length() - 1 && input.charAt(i) == input.charAt(i + 1)) {
-                result.append("Double");}
-            else{
-                result.append(input.charAt(i));
-            }
+        Pattern pattern = Pattern.compile("(.)\\1"); //pattern object with expression that captures any character (.) and checks if it matches \\1
+        Matcher matcher = pattern.matcher(input); //creating a matcher object that matches the input string against the pattern
+        StringBuilder output = new StringBuilder(); //StringBuilder to store the transformed string
+
+        while (matcher.find()) { //if match is found in input
+            String group = matcher.group(1); //capturing the matched char, matcher.group represents the first capturing group
+            String replacement = "Double" + Character.toUpperCase(group.charAt(0)); //creating a string using mask Double* where * is letter uppercase in the group
+            matcher.appendReplacement(output, replacement); //replacing matching sequence with replacement string
         }
-        return result.toString();}
+        matcher.appendTail(output); //append everything else after matched part
+
+        return output.toString();
+    }
     
     public static boolean doesBlockFit(int a,int b,int c,int w,int h){
         int area = w*h;
@@ -85,12 +90,33 @@ public class Chumakov_3 {
         }else {
     return false;}}
     public static int countRoots(int[] inputArray){
-        int d = (inputArray[1] * inputArray[1])- (4 * inputArray[0] * inputArray[2]);
+        double[] tempArray = new double[inputArray.length];
+        
+        for (int i = 0; i < inputArray.length; i++){
+            tempArray[i] = (double) inputArray[i];
+        }
+        //System.out.println(Arrays.toString(tempArray));
+        Double d = (tempArray[1] * tempArray[1])- (4 * tempArray[0] * inputArray[2]);
+        Double x1 = (-(inputArray[1]) + Math.sqrt(d))/(2*inputArray[0]) ;
+        Double x2 = (-(inputArray[1]) - Math.sqrt(d))/(2*inputArray[0]) ;
         if (d>0){
-            return 2;
+            if (x1 == (double)(x1.intValue()) && x2 == (double)(x2.intValue())){
+                return 2;
+            }
+            if (x1 == (double)(x1.intValue()) ^ x2 == (double)(x2.intValue())){
+                return 1;
+            }
+            else{
+                return 0;
+            }
         }
         else if (d==0){
-            return 1;
+            if (x1 == (double)(x1.intValue())){
+                return 1;
+            }
+            else{
+                return 0;
+            }
         }
         else{
             return 0;
@@ -181,7 +207,7 @@ public class Chumakov_3 {
         // Возвращаем гласную с наибольшим количеством встреч
         return vowels[maxIndex];
     }
-    public static int[][] dataScience(int[][] arr) {
+    public static String dataScience(int[][] arr) {
         int n = arr.length;  // number of arrays
         int m = arr[0].length;  // length of arrays
 
@@ -205,7 +231,7 @@ public class Chumakov_3 {
             arr[n - 1][j] = averages[j];
         }
 
-        return arr;
+        return Arrays.toString(arr);
     }
 
 }

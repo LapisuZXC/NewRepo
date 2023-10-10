@@ -1,3 +1,4 @@
+package LR1;
 public class Primes {
     public static void main(String[] args) {
         for (int i = 3; i<101; i++){

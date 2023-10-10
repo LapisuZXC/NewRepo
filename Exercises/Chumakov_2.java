@@ -3,6 +3,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Random;
 public class Chumakov_2 {
+
     public static void main(String[] args) {
         // System.out.println();
         int[] int_array_1 = {44, 32, 86, 19};
