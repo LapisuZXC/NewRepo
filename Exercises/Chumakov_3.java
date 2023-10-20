@@ -39,8 +39,8 @@ public class Chumakov_3 {
         System.out.println(isWaveForm(inputArray8));
         System.out.println(commonVowel("Hello world"));
         System.out.println(commonVowel("Actions speak louder than words"));
-        System.out.println(dataScience(inputArray9));
-        System.out.println(dataScience(inputArray10));
+        System.out.println(Arrays.deepToString(dataScience(inputArray9)));
+        System.out.println(Arrays.deepToString(dataScience(inputArray10)));
         //System.out.println();
     }
     public static String replaceVovels(String word){
@@ -59,7 +59,7 @@ public class Chumakov_3 {
     public static String stringTransform(String input) {
         Pattern pattern = Pattern.compile("(.)\\1"); //pattern object with expression that captures any character (.) and checks if it matches \\1
         Matcher matcher = pattern.matcher(input); //creating a matcher object that matches the input string against the pattern
-        StringBuilder output = new StringBuilder(); //StringBuilder to store the transformed string
+        StringBuffer output = new StringBuffer(); //StringBuilder to store the transformed string
 
         while (matcher.find()) { //if match is found in input
             String group = matcher.group(1); //capturing the matched char, matcher.group represents the first capturing group
@@ -207,31 +207,29 @@ public class Chumakov_3 {
         // Возвращаем гласную с наибольшим количеством встреч
         return vowels[maxIndex];
     }
-    public static String dataScience(int[][] arr) {
-        int n = arr.length;  // number of arrays
-        int m = arr[0].length;  // length of arrays
-        String[][] result = new String[n]z
-        // Calculate the arithmetic mean for each column, except the last one
-        int[] columnSums = new int[m];
-        for (int i = 0; i < n; i++) {
+    public static int[][] dataScience(int[][] arrays) {
+        int n = arrays.length; //amount of arrays
+        int m = arrays[0].length; //length of each array
+        int[][] result = new int[n][m]; //result array
+        for (int i = 0; i < n; i++) { //calculating the arithmetic mean for N elements and updating the result
             for (int j = 0; j < m; j++) {
-                if (i != n - 1) {  // exclude the last array
-                    columnSums[j] += arr[i][j];
+                if (i == j) {
+                    int sum = 0;
+                    int count = 0;
+                    for (int k = 0; k < n; k++) {
+                        if (k != i) {
+                            sum += arrays[k][j];
+                            count++;
+                        }
+                    }
+                    result[i][j] = Math.round((float) sum / count);
+                } else {
+                    result[i][j] = arrays[i][j];
                 }
             }
         }
 
-        int[] averages = new int[m];  // arithmetic means
-        for (int j = 0; j < m; j++) {
-            averages[j] = columnSums[j] / (n - 1);
-        }
-
-        // Replace the n-th element of the n-th array with the corresponding arithmetic mean
-        for (int j = 0; j < m; j++) {
-            arr[n - 1][j] = Arrays.toString(averages[j]);
-        }
-        
-        return Arrays.toString(arr);
+        return result;
     }
 
 }

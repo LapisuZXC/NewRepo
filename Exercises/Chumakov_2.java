@@ -161,7 +161,7 @@ public class Chumakov_2 {
 
     public static String botHelper(String message){
         message.toLowerCase();
-        if (message.replaceAll("\\p{Punct}"," ").contains(" help ") || message..replaceAll("\\p{Punct}"," ").startsWith("help ", 0)   || message.replaceAll("\\p{Punct}"," ").endsWith(" help") || message.equals("help")) {
+        if (message.replaceAll("\\p{Punct}"," ").contains(" help ") || message.replaceAll("\\p{Punct}"," ").startsWith("help ", 0)   || message.replaceAll("\\p{Punct}"," ").endsWith(" help") || message.equals("help")) {
             return "Calling for a staff member";
         }
         else{

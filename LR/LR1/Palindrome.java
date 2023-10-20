@@ -1,3 +1,6 @@
+package LR1;
+
+
 
 public class Palindrome{
     

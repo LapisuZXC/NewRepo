@@ -1,4 +1,4 @@
-package LR.LR1;
+package LR1;
 
 public class Primes{
     public static void main(String[] args) {
