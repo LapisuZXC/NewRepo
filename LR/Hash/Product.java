@@ -36,10 +36,10 @@ public class Product{
 
     public void displayInfo(){
         System.out.println("Product's name: " + getName());
-        System.out.println();
+        
         System.out.println("Product's cost: " + getCost());
-        System.out.println();
+        
         System.out.println("Amount: " + getAmount());
-        System.out.println();
+        
     }
 }

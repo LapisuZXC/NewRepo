@@ -36,9 +36,6 @@ public class Chumakov_2 {
         System.out.println(botHelper("Hello, I’m under the water, please help, me"));
         System.out.println(botHelper("help me"));
         System.out.println(botHelper("help"));
-        //System.out.println(botHelper("help"));
-        //System.out.println(botHelper("help"));
-        //System.out.println(botHelper("help"));
         System.out.println(botHelper("Two pepperoni pizzas please"));
         System.out.println(isAnagram("listen", "netsil"));
         System.out.println(isAnagram("eleven plus two", "twelve plus one"));
@@ -159,15 +156,18 @@ public class Chumakov_2 {
         return result;
     }
 
-    public static String botHelper(String message){
-        message.toLowerCase();
-        if (message.replaceAll("\\p{Punct}"," ").contains(" help ") || message.replaceAll("\\p{Punct}"," ").startsWith("help ", 0)   || message.replaceAll("\\p{Punct}"," ").endsWith(" help") || message.equals("help")) {
-            return "Calling for a staff member";
+    public static String botHelper(String transcript) { 
+        String[] words = transcript.split("\\p{Punct}|\\s+"); 
+         
+        for (String word : words) { 
+            if (word.equalsIgnoreCase("help")) { 
+                return "Calling for a staff member"; 
+            } 
         }
-        else{
-            return "Keep waiting";
-        }
+         
+        return "keep waiting"; 
     }
+    
     public static boolean isAnagram(String input1, String input2) {
         input1 = input1.replaceAll("\\s", "").toLowerCase();
         input2 = input2.replaceAll("\\s", "").toLowerCase();

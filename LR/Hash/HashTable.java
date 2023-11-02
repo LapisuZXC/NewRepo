@@ -1,6 +1,7 @@
 package Hash;
 
 import java.util.LinkedList;
+import Hash.Product;
 
 public class HashTable<K, V> {
     private LinkedList<Entry<K, V>>[] table;
@@ -27,7 +28,7 @@ public class HashTable<K, V> {
         table[index].add(new Entry<>(key, value));
         size++;
     }
-
+    
     public V get(K key) {
         int index = getIndex(key);
         if (table[index] != null) {
@@ -52,7 +53,25 @@ public class HashTable<K, V> {
             }
         }
     }
-
+    
+    public void display(){
+        
+        for (int i = 0; i<capacity; i++){
+            System.out.println("Ячейка" + i);
+                if (table[i] != null){
+                    for (Entry<K,V> entry : table[i])
+                {
+                    ((Product) entry.getValue()).displayInfo();
+                }
+            }
+            System.out.println();
+                
+                
+        }
+            
+        
+    }
+    
     public int size() {
         return size;
     }
@@ -70,6 +89,7 @@ public class HashTable<K, V> {
         int hashCode = key.hashCode();
         return Math.abs(hashCode) % capacity;
     }
+
 
     private static class Entry<K, V> {
         private K key;
