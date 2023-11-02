@@ -35,33 +35,11 @@ public class Chumakov_4{
         System.out.println(switchNums(519, 723));
     }
     public static String nonRepeatable(String str) {
-        repeatsort(str,0);
+    if (str.equals("")){
         return str;
     }
-    public static void repeatsort(String str, int k){
-        char[] c = str.toCharArray();
-        
-        Set<Character>  set = new HashSet<>();
-        for (char ch : c){
-            set.add(ch);
-        }
-        char[] chrs = new char[set.size()];
-        int count = 0;
-        for (char chr : set){
-            chrs[count] = chr;
-            count++;
-        } 
-        for (char l : chrs){
-            str.replace(String.valueOf(l),"");
-        }
-        c = str.toCharArray();
-        int max = chrs.length;
-        if (k<max){
-            repeatsort(str, k+1);
-           
-        }
-
-    }
+    return str.charAt(0) + nonRepeatable(str.replaceAll(String.valueOf(str.charAt(0)), ""));
+    }   
     public static List<String> generateBrackets(int n) {
         List<String> result = new ArrayList<>();
         backtrack(result, "", 0, 0, n);
