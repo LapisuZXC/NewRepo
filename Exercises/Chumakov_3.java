@@ -25,6 +25,7 @@ public class Chumakov_3 {
         System.out.println(doesBlockFit(1,3,5,4,5));
         System.out.println(doesBlockFit(1,8,1,1,1));
         System.out.println(doesBlockFit(1,2,2,1,1));
+        System.out.println(doesBlockFit(4,2,3,1,6));
         System.out.println(numCheck(293));
         System.out.println(numCheck(52));
         System.out.println(countRoots(inputArray1));
@@ -57,38 +58,42 @@ public class Chumakov_3 {
         return sb.toString();
     }
     public static String stringTransform(String input) {
-        Pattern pattern = Pattern.compile("(.)\\1"); //pattern object with expression that captures any character (.) and checks if it matches \\1
-        Matcher matcher = pattern.matcher(input); //creating a matcher object that matches the input string against the pattern
-        StringBuffer output = new StringBuffer(); //StringBuilder to store the transformed string
+        Pattern pattern = Pattern.compile("(.)\\1"); 
+        Matcher matcher = pattern.matcher(input); 
+        StringBuffer output = new StringBuffer(); 
 
-        while (matcher.find()) { //if match is found in input
-            String group = matcher.group(1); //capturing the matched char, matcher.group represents the first capturing group
+        while (matcher.find()) { 
+            String group = matcher.group(1); 
             String replacement = "Double" + Character.toUpperCase(group.charAt(0)); //creating a string using mask Double* where * is letter uppercase in the group
-            matcher.appendReplacement(output, replacement); //replacing matching sequence with replacement string
+            matcher.appendReplacement(output, replacement); 
         }
-        matcher.appendTail(output); //append everything else after matched part
+        matcher.appendTail(output); 
 
         return output.toString();
     }
+
+    //??? 3-4 lines []
+    //
     
-    public static boolean doesBlockFit(int a,int b,int c,int w,int h){
-        int area = w*h;
-        if (a*b <= area || a*c<=area || b*c <= area){
-            return true;
-    }
-        return false;
-        
-}
+    public static boolean doesBlockFit(int a, int b, int c, int w, int h) { 
+        int[] blockDimensions = {a, b, c}; 
+        int[] holeDimensions = {w, h}; 
+         
+        Arrays.sort(blockDimensions); 
+        Arrays.sort(holeDimensions); 
+         
+        return blockDimensions[0] <= holeDimensions[0] && blockDimensions[1] <= holeDimensions[1]; 
+    } 
+
     public static boolean numCheck(int num){
         String numStr = String.valueOf(num);
         int digitSquaredSum = 0;
         for (int i =0; i< numStr.length()-1 ;i++){
             digitSquaredSum += Integer.valueOf(numStr.charAt(i));
         }
-        if((num % 2 == 0 && digitSquaredSum % 2==0)||(num%2!=0 && digitSquaredSum%2!=0)){
-            return true;
-        }else {
-    return false;}}
+        return num % 2 == digitSquaredSum % 2;}
+            
+
     public static int countRoots(int[] inputArray){
         double[] tempArray = new double[inputArray.length];
         
@@ -178,14 +183,14 @@ public class Chumakov_3 {
     }
 
     public static char commonVowel(String sentence) {
-        // Создаем массив с гласными буквами
+       
         char[] vowels = {'a', 'e', 'i', 'o', 'u'};
         int[] counts = new int[vowels.length];
 
-        // Приводим предложение к нижнему регистру для удобства сравнения
+        
         sentence = sentence.toLowerCase();
 
-        // Подсчитываем количество каждой гласной в предложении
+        
         for (int i = 0; i < sentence.length(); i++) {
             char c = sentence.charAt(i);
             for (int j = 0; j < vowels.length; j++) {
@@ -194,24 +199,20 @@ public class Chumakov_3 {
                     break;
                 }
             }
-        }
-
-        // Находим индекс гласной с наибольшим количеством встреч
+        }    
         int maxIndex = 0;
         for (int i = 1; i < counts.length; i++) {
-            if (counts[i] > counts[maxIndex]) {
+            if (counts[i] >= counts[maxIndex]) {
                 maxIndex = i;
             }
         }
-
-        // Возвращаем гласную с наибольшим количеством встреч
         return vowels[maxIndex];
     }
     public static int[][] dataScience(int[][] arrays) {
-        int n = arrays.length; //amount of arrays
-        int m = arrays[0].length; //length of each array
-        int[][] result = new int[n][m]; //result array
-        for (int i = 0; i < n; i++) { //calculating the arithmetic mean for N elements and updating the result
+        int n = arrays.length; 
+        int m = arrays[0].length; 
+        int[][] result = new int[n][m]; 
+        for (int i = 0; i < n; i++) { 
             for (int j = 0; j < m; j++) {
                 if (i == j) {
                     int sum = 0;

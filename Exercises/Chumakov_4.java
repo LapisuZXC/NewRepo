@@ -35,7 +35,32 @@ public class Chumakov_4{
         System.out.println(switchNums(519, 723));
     }
     public static String nonRepeatable(String str) {
-        return "";
+        repeatsort(str,0);
+        return str;
+    }
+    public static void repeatsort(String str, int k){
+        char[] c = str.toCharArray();
+        
+        Set<Character>  set = new HashSet<>();
+        for (char ch : c){
+            set.add(ch);
+        }
+        char[] chrs = new char[set.size()];
+        int count = 0;
+        for (char chr : set){
+            chrs[count] = chr;
+            count++;
+        } 
+        for (char l : chrs){
+            str.replace(String.valueOf(l),"");
+        }
+        c = str.toCharArray();
+        int max = chrs.length;
+        if (k<max){
+            repeatsort(str, k+1);
+           
+        }
+
     }
     public static List<String> generateBrackets(int n) {
         List<String> result = new ArrayList<>();
@@ -78,6 +103,7 @@ public class Chumakov_4{
     public static String alphabeticRow(String str) {
         String longestRow = "";
         String currentRow = "";
+        String result = "";
     
         for (int i = 0; i < str.length() - 1; i++) {
             currentRow += str.charAt(i);
@@ -92,14 +118,37 @@ public class Chumakov_4{
     
             currentRow = "";
         }
-    
         currentRow += str.charAt(str.length() - 1);
     
         if (currentRow.length() > longestRow.length()) {
-            longestRow = currentRow;
+            result = currentRow;
+        }
+        else result = longestRow;
+        currentRow = "";
+        longestRow = "";
+
+        for (int i = str.length()-1; i > 0; i--) {
+            currentRow += str.charAt(i);
+    
+            if (str.charAt(i-1) - str.charAt(i) == 1) {
+                continue;
+            }
+    
+            if (currentRow.length() > longestRow.length()) {
+                longestRow = currentRow;
+            }
+    
+            currentRow = "";
         }
     
-        return longestRow;
+        currentRow += str.charAt(0);
+    
+        if (currentRow.length() > result.length())
+            result = currentRow;
+        else if (longestRow.length() > result.length())
+            result = longestRow;
+    
+        return result;
     }
     
     public static String lettersCount(String arg){
@@ -199,14 +248,15 @@ public class Chumakov_4{
         Set<String> set = new HashSet<>();
         char[] c = arg.toCharArray();
         String result = "";
+    
         for (char ch : c){
             if(!set.add(String.valueOf(ch))){
                 break;
             }
-            result += String.valueOf(ch);
-            
-            
+            result += String.valueOf(ch);  
         }
+        
+
         return result;
     }
     public static int shortestWay(int[][] array){

@@ -5,22 +5,34 @@ import java.util.InputMismatchException;
 
 
 public class ArrayAverage<T> {
-    public static void main(String[] args) throws arrayAverageExсeption{
-        int[] arr = {1, 2, 3, 4, 5};
-        int sum = 0;
+    
+    public static void main(String[] args) {
+        int[] inputArray1 = {1,2,3,4,5};
+        String[] inputArray2 = {};
+        String[] inputArray3 = {"sadasd","asdda","sd"};
         try {
-            // Обработка массива
-            for (int i = 0; i < arr.length; i++) {
-                sum += arr[i];
-            }
-            double average = (double) sum / arr.length;
-            System.out.println("Среднее арифметическое: " + average);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            
-            System.out.println("Ошибка! Выход за границы массива.");
-        } catch (NumberFormatException e) {
-           
-            System.out.println("Ошибка! Элемент массива не является числом.");
+            arrayAverage(inputArray1);
+            arrayAverage(inputArray2);
+            arrayAverage(inputArray3);
+        } catch (InputMismatchException e) {
+            System.out.println("Input does not match data type");
+        } catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("Input out of index");
         }
+    }
+    private double arrayAverage(T[] inputArray) throws arrayAverageExсeption{
+        if (inputArray.length == 0){
+            throw new arrayAverageExсeption("Array is empty!");
+        }
+        
+        
+
+        
+        int sum = 0;
+        try{
+        for (T i : inputArray){
+            sum+= Integer.valueOf(i);
+        }}
+        return sum/inputArray.length;
     }
 }
