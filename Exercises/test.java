@@ -1,9 +1,11 @@
 public class test {
     public static void main(String[] args) {
         Double var = 3.5;
+        String str = "H3";
+        int il = str.charAt(1);
         System.out.println(var.intValue());
         System.out.println(test(3));
-        System.out.println();
+        System.out.println(il);
     }
     public static String test(int arg){
         arg *= 2;

@@ -4,32 +4,23 @@ import java.lang.reflect.Array;
 import java.util.InputMismatchException;
 
 
-public class ArrayAverage {
-    public static void main(String[] args) {
-        Array inputArray1 = {1,2,3,4,5};
-        Array inputArray2 = {};
-        Array inputArray3 = {"sadasd","asdda","sd"};
-        try {
-            arrayAverage(inputArray1);
-            arrayAverage(inputArray2);
-            arrayAverage(inputArray3);
-        } catch (InputMismatchException e) {
-            System.out.println("Input does not match data type");
-        } catch (ArrayIndexOutOfBoundsException e){
-            System.out.println("Input out of index");
-        }
-    }
-    public static double arrayAverage(int[] inputArray) throws arrayAverageExсeption{
-        if (inputArray.length == 0){
-            throw new arrayAverageExсeption("Array is empty!");
-        }
-        
-
-        
+public class ArrayAverage<T> {
+    public static void main(String[] args) throws arrayAverageExсeption{
+        int[] arr = {1, 2, 3, 4, 5};
         int sum = 0;
-        for (int i : inputArray){
-            sum+= i;
+        try {
+            // Обработка массива
+            for (int i = 0; i < arr.length; i++) {
+                sum += arr[i];
+            }
+            double average = (double) sum / arr.length;
+            System.out.println("Среднее арифметическое: " + average);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            
+            System.out.println("Ошибка! Выход за границы массива.");
+        } catch (NumberFormatException e) {
+           
+            System.out.println("Ошибка! Элемент массива не является числом.");
         }
-        return sum/inputArray.length;
     }
 }
