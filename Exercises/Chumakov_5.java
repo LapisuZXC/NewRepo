@@ -36,37 +36,38 @@ public class Chumakov_5 {
         return true;
     }
     public static String spiderVsFly(String spider, String fly) {
-        int sx = spider.charAt(0) - 65;
-        int sy = spider.charAt(1) - 48;
-        int fx = fly.charAt(0) - 65;
-        int fy = fly.charAt(1) - 48; // я не знаю ак но из-за того что я сделал перевод в инт теперь вот так
+        int spiderX = spider.charAt(0) - 65;
+        int spiderY = spider.charAt(1) - 48;
+        int flyX = fly.charAt(0) - 65;
+        int flyY = fly.charAt(1) - 48; // я не знаю ак но из-за того что я сделал перевод в инт теперь вот так
 
-        double strategyDist1 = sy + fy;
-        double strategyDist2 = Math.abs(sy - fy) + ((sx + fx) % 8) * fy * 0.76536686473;
+        double pathCalculation1 = spiderY + flyY;
+        double pathCalculation2 = Math.abs(spiderY - flyY) + ((spiderX + flyX) % 8) * flyY * 0.76536686473;
 
         String path = "";
 
-        if (strategyDist1 <= strategyDist2) {
-            for (int i = 0; i < sy; i++) {
+        if (pathCalculation1 <= pathCalculation2) {
+            for (int i = 0; i < spiderY; i++) {
                 path += spider.charAt(0);
-                path += sy - i;
+                path += spiderY - i;
                 path += '-';
             }
             path += "A0-";
-            for (int i = 0; i < fy; i++) {
+            for (int i = 0; i < flyY; i++) {
                 path += fly.charAt(0);
                 path += i + 1;
                 path += '-';
             }
-        } else {
-            for (int i = 0; i < Math.abs(sy - fy); i++) {
+        } 
+        else{
+            for (int i = 0; i < Math.abs(spiderY - flyY); i++) {
                 path += spider.charAt(0);
-                if (sy > fy) path += sy - i;
-                else path += sy + i;
+                if (spiderY > flyY) path += spiderY - i;
+                else path += spiderY + i;
                 path += '-';
             }
-            for (int i = 0; i <= (sx + fx) % 8; i++) {
-                path += (char)(65 + (sx + i) % 8);
+            for (int i = 0; i <= (spiderX + flyX) % 8; i++) {
+                path += (char)(65 + (spiderX + i) % 8);
                 path += fly.charAt(1);
                 path += '-';
             }

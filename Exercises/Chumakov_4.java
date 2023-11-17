@@ -1,17 +1,12 @@
-import java.sql.Array;
-import java.time.temporal.ValueRange;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.concurrent.ExecutionException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 import Hash.HashTable;
 
@@ -28,6 +23,9 @@ public class Chumakov_4{
         System.out.println(alphabeticRow("abcdjuwx") );
         System.out.println(alphabeticRow("klmabzyxw")); 
         System.out.println(lettersCount("asdfaffasfsddassda"));
+        System.out.println(convertToNum("eight"));
+        System.out.println(convertToNum("five hundred sixty seven"));
+        System.out.println(convertToNum("thirty one"));
         System.out.println(uniqueSubstring("23141132"));
         System.out.println(uniqueSubstring("111111"));
         System.out.println(shortestWay(array1));
@@ -150,11 +148,13 @@ public class Chumakov_4{
     }
     public static int convertToNum(String str){
         int result = 0;
+        str.toLowerCase();
         
         String[] temp = str.split(" ");
             
         
-        HashTable<String,Integer> nums = new HashTable<>(0);
+        HashTable<String,Integer> nums = new HashTable<>(19);
+        nums.put("zero",0);
         nums.put("one",1);
         nums.put("two",2);
         nums.put("three",3);
@@ -189,26 +189,24 @@ public class Chumakov_4{
         }
         else if(temp.length == 2){
             //boolean exeption1 = temp[1] != "twelve" || temp[1] != "thirteen" || temp[1] != "fifteen" || temp[1] != "twenty" || temp[1] != "thirty" || temp[1] != "forty" || temp[1] != "fifty" ;
-            boolean exeption1 = temp[0] != "twelve" || temp[0] != "thirteen" || temp[0] != "fifteen";
+            boolean exeption1 = !temp[0].equals("twelve") || !temp[0].equals("thirteen") || !temp[0].equals("fifteen");
             if (nums.get(temp[1]) != null & nums.get(temp[1]).toString().length() == 1) {
                 result += nums.get(temp[1]);}
             if (nums.get(temp[0]) != null & exeption1 ){
                 result += nums.get(temp[0]);
             }
             else if(nums.get(temp[0].replace("ty","")) != null){
-                result += nums.get(temp[1]) * 10;
+                result += nums.get(temp[0].replace("ty","")) * 10;
             }
-            else if(temp[0] == "hundred" || temp[1] == "hundreds"){
+            else if(temp[0].equals("hundred") || temp[1].equals("hundreds")){
                 result += nums.get(temp[0]) * 100;
             }
-            else if(temp[0] == "thousand" || temp[1] == "thousands"){
-                result += nums.get(temp[0] ) * 1000;
-            }
+            
         }   
         else if (temp.length == 3){
             if (nums.get(temp[2]) != null & nums.get(temp[2]).toString().length() == 1) {
                 result += nums.get(temp[2]);}
-            if (temp[1] == "hundred" || temp[1] == "hundreds"){
+            if (temp[1].equals("hundred") || temp[1].equals("hundreds")){
                 result += nums.get(temp[0] ) * 100;
 
             }
@@ -218,10 +216,17 @@ public class Chumakov_4{
             if (nums.get(temp[3]) != null & nums.get(temp[3]).toString().length() == 1) {
                 result += nums.get(temp[3]);
             }
+            if (temp[1].equals("hundred") || temp[1].equals("hundreds")){
+                result += nums.get(temp[0] ) * 100;
+            }
+            if(nums.get(temp[2].replace("ty","")) != null){
+                result += nums.get(temp[2].replace("ty","")) * 10;
             
         }
+    }
         return result;
     }
+    
     public static String uniqueSubstring(String arg){
         Set<String> set = new HashSet<>();
         char[] c = arg.toCharArray();
