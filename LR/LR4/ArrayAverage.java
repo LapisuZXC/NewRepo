@@ -2,25 +2,29 @@ package LR4;
 
 import java.lang.reflect.Array;
 import java.util.InputMismatchException;
+import java.util.Scanner;
 
 
-public class ArrayAverage<T> {
+public class ArrayAverage {
     
     public static void main(String[] args) {
-        int[] inputArray1 = {1,2,3,4,5};
-        String[] inputArray2 = {};
-        String[] inputArray3 = {"sadasd","asdda","sd"};
+        Scanner sr = new Scanner("");
+        int s = Integer.valueOf(sr.nextLine());
+        int[] inputArray = new int[s];
+        for (int i =0;i<s;i++){
+            inputArray[i] = Integer.valueOf(sr.nextLine());
+        }
+        
+
         try {
-            arrayAverage(inputArray1);
-            arrayAverage(inputArray2);
-            arrayAverage(inputArray3);
-        } catch (InputMismatchException e) {
+            arrayAverage(inputArray);
+        } catch (arrayAverageExсeption e) {
             System.out.println("Input does not match data type");
         } catch (ArrayIndexOutOfBoundsException e){
             System.out.println("Input out of index");
         }
     }
-    private double arrayAverage(T[] inputArray) throws arrayAverageExсeption{
+    private static Double arrayAverage(int[] inputArray) throws arrayAverageExсeption{
         if (inputArray.length == 0){
             throw new arrayAverageExсeption("Array is empty!");
         }
@@ -28,11 +32,13 @@ public class ArrayAverage<T> {
         
 
         
-        int sum = 0;
-        try{
-        for (T i : inputArray){
-            sum+= Integer.valueOf(i);
-        }}
+        
+    
+        Double sum = 0.0;
+        for (int i : inputArray){
+            sum += i;
+        
         return sum/inputArray.length;
     }
-}
+    }
+}   

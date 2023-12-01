@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 
 import Hash.HashTable;
@@ -20,9 +22,9 @@ public class Chumakov_4{
         System.out.println(generateBrackets(3));
         System.out.println(binarySystem(3));
         System.out.println(binarySystem(4));
-        System.out.println(alphabeticRow("abcdjuwx") );
+        System.out.println(alphabeticRow("abcddcba") );
         System.out.println(alphabeticRow("klmabzyxw")); 
-        System.out.println(lettersCount("asdfaffasfsddassda"));
+        System.out.println(lettersCount("aaavvvvaaaaaajj"));
         System.out.println(convertToNum("eight"));
         System.out.println(convertToNum("five hundred sixty seven"));
         System.out.println(convertToNum("thirty one"));
@@ -31,6 +33,8 @@ public class Chumakov_4{
         System.out.println(shortestWay(array1));
         System.out.println(numericOrder("t3o the5m 1One all6 r4ule ri2ng") );
         System.out.println(switchNums(519, 723));
+        System.out.println(switchNums(491, 3912));
+        System.out.println(switchNums(6274, 71259)); 
     }
     public static String nonRepeatable(String str) {
     if (str.equals("")){
@@ -128,23 +132,47 @@ public class Chumakov_4{
     }
     
     public static String lettersCount(String arg){
-        String[] array = new String[arg.length()+1];
-        for (int j = 0; j<arg.length();j++){
-            array[j] = (String.valueOf(arg.charAt(j)));
-        }
+        
         String result = "";
-        Set<String> set = new HashSet<>();
-        char[] c = arg.toCharArray();
-        for (char ch : c){
-            set.add(String.valueOf(ch));
-        }
-        String[] uniqueChars = set.toArray(new String[0]);
-        for (int i = 0; i< uniqueChars.length;i++){
+        
+        
+        String[] splited = arg.split("(?<=(.))(?!\\1)");
+        
+        for (String s: splited){
+            Set<String> set = new HashSet<>();  
+            String[] array = new String[s.length()+1];
+            for (int j = 0; j<s.length();j++){
+                array[j] = (String.valueOf(s.charAt(j)));
+            }
+            char[] c = s.toCharArray();
+            for (char ch : c){
+                set.add(String.valueOf(ch));
+            }
+            String[] uniqueChars = set.toArray(new String[0]);
+            for (int i = 0; i< uniqueChars.length;i++){
             
-            int count = Collections.frequency(Arrays.asList(array), uniqueChars[i]);
-            result+= uniqueChars[i] + String.valueOf(count);
+                int count = Collections.frequency(Arrays.asList(array), uniqueChars[i]);
+                result+= uniqueChars[i] + String.valueOf(count);
         }
-        return result;
+        }
+        String[] results = result.split("(?<=\\G.{" + 2 + "})");
+        StringBuilder output = new StringBuilder();
+        for (String p : results){
+            output.append(p+ " ");
+        }
+        Map<Integer, String> wordMap = new TreeMap<>();
+        for (String word : results) {
+            int order = Integer.parseInt(word.replaceAll("[^0-9]", ""));
+            wordMap.put(order, word);
+        }
+
+        StringBuilder resultt = new StringBuilder();
+        for (String word : wordMap.values()) {
+            resultt.append(word);
+        }
+
+        return resultt.toString().trim();
+        
     }
     public static int convertToNum(String str){
         int result = 0;
@@ -281,16 +309,44 @@ public class Chumakov_4{
 
         return result.toString().trim();
     }
-    public static int switchNums(int num1, int num2) {
-        char[] arr1 = String.valueOf(num1).toCharArray();
-        char[] arr2 = String.valueOf(num2).toCharArray();
-        Arrays.sort(arr1);
-        Arrays.sort(arr2);
-        for (int i = arr1.length - 1, j = 0; i >= 0 && j < arr2.length; i--, j++) {
-            arr2[j] = arr1[i];
+    public static ArrayList<Integer> quicksort(ArrayList<Integer> arr) {
+        if (arr.size() == 0) {
+            return arr;
         }
-        int result = Integer.parseInt(String.valueOf(arr2));
+        int axis = arr.get(0);
+        ArrayList<Integer> array1 = new ArrayList<Integer>();
+        ArrayList<Integer> array2 = new ArrayList<Integer>();
+        for (int i = 1; i < arr.size(); i++) {
+            if (axis < arr.get(i)) {
+                array1.add(arr.get(i));
+            } else {
+                array2.add(arr.get(i));
+            }
+        }
+        ArrayList<Integer> result = new ArrayList<Integer>(quicksort(array1));
+        result.add(axis);
+        result.addAll(quicksort(array2));
         return result;
+    }
+    public static int switchNums(int a, int b) {
+        ArrayList<Integer> digits = new ArrayList<Integer>();
+        while (a > 0){
+            if (a%10 > 0) {
+                digits.add(a % 10);
+            }
+            a /= 10;
+        }
+        digits = quicksort(digits);
+        for (int i = 0; i < String.valueOf(b).length(); i++) {
+            if (digits.get(0) > Character.getNumericValue(String.valueOf(b).charAt(i))) {
+                char[] temp = String.valueOf(b).toCharArray();
+                temp[i] = (char) (digits.get(0)+'0');
+                b = Integer.parseInt(String.valueOf(temp));
+                digits.remove(0);
+            }
+        }
+
+        return b;
     }
     
 }
