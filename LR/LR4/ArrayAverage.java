@@ -1,44 +1,27 @@
 package LR4;
 
-import java.lang.reflect.Array;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+
 
 
 public class ArrayAverage {
-    
     public static void main(String[] args) {
-        Scanner sr = new Scanner("");
-        int s = Integer.valueOf(sr.nextLine());
-        int[] inputArray = new int[s];
-        for (int i =0;i<s;i++){
-            inputArray[i] = Integer.valueOf(sr.nextLine());
-        }
-        
+        int[] arr = {1, 2, 3, 4, 5};
+        int sum = 0;
+        int count = 0;
 
         try {
-            arrayAverage(inputArray);
-        } catch (arrayAverageExсeption e) {
-            System.out.println("Input does not match data type");
-        } catch (ArrayIndexOutOfBoundsException e){
-            System.out.println("Input out of index");
-        }
-    }
-    private static Double arrayAverage(int[] inputArray) throws arrayAverageExсeption{
-        if (inputArray.length == 0){
-            throw new arrayAverageExсeption("Array is empty!");
-        }
-        
-        
+            for (int j : arr) {
+                sum += j;
+                count++;
+            }
 
-        
-        
-    
-        Double sum = 0.0;
-        for (int i : inputArray){
-            sum += i;
-        
-        return sum/inputArray.length;
+            double average = (double) sum / count;
+            System.out.println("Среднее арифметическое элементов массива: " + average);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Ошибка: выход за границы массива");
+        } catch (NumberFormatException e) {
+            System.out.println("Ошибка: элемент массива не является числом");
+        }
     }
     }
 }   
