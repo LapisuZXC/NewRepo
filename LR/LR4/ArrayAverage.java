@@ -1,26 +1,29 @@
 package LR4;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
-
-
-
-public class ArrayAverage {
+public class ArrayAverage{
     public static void main(String[] args) {
-        int[] arr = {1, 2, 3, 4, 5};
         int sum = 0;
-        int count = 0;
-
+        Scanner scan = new Scanner(System.in);
+        int[] arr = new int[5];
         try {
-            for (int j : arr) {
-                sum += j;
-                count++;
+            for (int i = 0; i < arr.length; i++) {
+                System.out.print("Введите значение для " + i + " элемента массива: ");
+                arr[i] = scan.nextInt();
             }
-
-            double average = (double) sum / count;
-            System.out.println("Среднее арифметическое элементов массива: " + average);
+            scan.close();
+            for (int i = 0; i < arr.length; i++) {
+                sum += arr[i];
+            }
+            
+            double average = (double) sum / arr.length;
+            System.out.println("Среднее арифметическое: " + average);
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Ошибка: выход за границы массива");
-        } catch (NumberFormatException e) {
-            System.out.println("Ошибка: элемент массива не является числом");
+        } catch (InputMismatchException e) {
+            System.out.println("Ошибка: неверные данные в массиве");
         }
     }
+    
 }

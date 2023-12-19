@@ -28,7 +28,7 @@ public class DivisionProgram {
     }
 
     public static void logException(Exception e) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("exception_log.txt", true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("exception.log", true))) {
             LocalDateTime currentTime = LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             String formattedTime = currentTime.format(formatter);
