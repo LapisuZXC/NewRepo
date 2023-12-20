@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Map;
 import java.util.Stack;
 import java.util.stream.Collectors;
 import javax.swing.RowFilter.Entry;
@@ -65,38 +66,48 @@ public class Chumakov_6 {
         System.out.println(isValid("aabbcd"));
         System.out.println(isValid("aabbccddeefghi"));
         System.out.println(isValid("abcdefghhgfedecba") );
+        System.out.println();
+        System.out.println(findLCS("abcd", "bd"));
+        System.out.println(findLCS("aggtab", "gxtxamb") );
         
 
     }
-    public static int[] getLetterSet(String str) {
-        int[] set = new int[26];
-        for (char c : str.toCharArray())
-            set[c - 97]++;
+    public static Map<Character, Integer> getLetterSet(String str) {
+        Map<Character, Integer> set = new HashMap<>();
+        for (char c : str.toCharArray()) {
+            if (Character.isLowerCase(c)) {
+                set.put(c, set.getOrDefault(c, 0) + 1);
+            }
+        }
         return set;
     }
 
     public static String onlyLetters(String str) {
         str = str.toLowerCase();
-        String res = "";
-        for (char c : str.toCharArray())
-            if (97 <= c && c <= 122)
-                res += c;
-        return res;
+        StringBuilder resBuilder = new StringBuilder();
+        for (char c : str.toCharArray()) {
+            if (97 <= c && c <= 122) {
+                resBuilder.append(c);
+            }
+        }
+        return resBuilder.toString();
     }
 
     public static String hiddenAnagram(String a, String b) {
         a = onlyLetters(a);
         b = onlyLetters(b);
-        int[] setB = getLetterSet(b);
+        Map<Character, Integer> setB = getLetterSet(b);
         for (int i = 0; i <= a.length() - b.length(); i++) {
-            String substr = a.substring(i, i+b.length());
-            int[] setA = getLetterSet(substr);
-            if (Arrays.equals(setA, setB)) {
-                String res = "";
-                for (char c : substr.toCharArray())
-                    if (97 <= c && c <= 122)
-                        res += c;
-                return res;
+            String substr = a.substring(i, i + b.length());
+            Map<Character, Integer> setA = getLetterSet(substr);
+            if (setA.equals(setB)) {
+                StringBuilder resBuilder = new StringBuilder();
+                for (char c : substr.toCharArray()) {
+                    if (97 <= c && c <= 122) {
+                        resBuilder.append(c);
+                    }
+                }
+                return resBuilder.toString();
             }
         }
         return "noutfond";
@@ -324,24 +335,24 @@ public class Chumakov_6 {
         return 0;
     }
     public static String isValid(String str) {
-        int[] set = getLetterSet(str);
-        int[] medium = new int[str.length()];
-        for (int i = 0; i < set.length; i++)
-            if (set[i] != 0) medium[set[i]]++;
-        int cur = 0;
-        int max = 0;
-        for (int i = 0; i < medium.length; i++)
-            if (medium[i] > cur) {
-                cur = medium[i];
-                max = i;
+        int[] charCount = new int[26]; // массив для подсчета количества символов
+
+        // подсчитываем количество каждого символа в строке
+        for (char c : str.toCharArray()) {
+            charCount[c - 'a']++;
+        }
+
+        int oddCount = 0; // количество символов с нечетным количеством
+
+        // проверяем количество символов с нечетным количеством
+        for (int count : charCount) {
+            if (count % 2 != 0) {
+                oddCount++;
             }
-        boolean index = false;
-        for (int i = 0; i < set.length; i++)
-            if (set[i] != 0 && max - set[i] != 0) {
-                if (index) return "NO";
-                index = true;
-            }
-        return "YES";
+        }
+        // определяем, является ли строка действительной
+        return oddCount <= 1 ?  "YES" : "NO";
+        
     }
 
     public static String findLCS(String str1, String str2) {
