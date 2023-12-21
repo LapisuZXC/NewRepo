@@ -8,7 +8,7 @@ public class WordFinder {
         Pattern pattern = Pattern.compile("\\b" + symbol + "[a-zA-Z]*\\b", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(str);
         while (matcher.find()) {
-            System.out.println(matcher.group());
+            System.out.println(matcher.group() + ": " + matcher.groupCount());
         }
     }
 }

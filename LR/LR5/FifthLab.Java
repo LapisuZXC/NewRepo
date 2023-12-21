@@ -1,3 +1,5 @@
+package LR5;
+
 public class FifthLab {
     public static void main(String[] args) {
         NumberFinder.numberFinder("Numbers: 199 9 20.676 5.2 3.  .6 342432..4324  - 3223 ");

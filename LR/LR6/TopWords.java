@@ -36,7 +36,7 @@ public class TopWords {
         });
         for (int i = 0; i < 10; i++) {
             //System.out.println(list.get(i));  // с количеством
-            System.out.println((list.get(i).toString().split("=")[0]));
+            System.out.println((list.get(i).toString().split("=")[0] + ": " + dict.get(list.get(i).toString().split("=")[0]) ));
         }
     }
 }
