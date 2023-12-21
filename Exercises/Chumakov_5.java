@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 
@@ -12,13 +15,11 @@ public class Chumakov_5 {
         System.out.println(sameLetterPattern("FFFF", "ABCD"));
         System.out.println();
 
-        System.out.println(spiderVsFly("H3", "E2"));
-        System.out.println(spiderVsFly("B4", "A4"));
-                System.out.println(spiderVsFly("A2", "H4"));
-
-        System.out.println(spiderVsFly("A4", "C4"));
-                System.out.println(spiderVsFly("A2", "C2"));
-
+        System.out.println(spiderVsFly("A4", "B2"));
+        System.out.println(spiderVsFly("B4", "C3"));
+        System.out.println(spiderVsFly("A2", "C4"));
+        System.out.println(spiderVsFly("A2", "G4"));
+        System.out.println(spiderVsFly("A3", "C2"));
         System.out.println();
 
         System.out.println(digitsCount(4666));
@@ -54,11 +55,13 @@ public class Chumakov_5 {
         System.out.println(setSetup(7, 3));
         System.out.println();
 
+        
         System.out.println(timeDifference("Los Angeles", "April 1, 2011 23:23", "Canberra"));
         System.out.println(timeDifference("London", "July 31, 1983 23:01", "Rome"));
         System.out.println(timeDifference("New York", "December 31, 1970 13:40", "Beijing"));
         
         System.out.println();
+        
 
         System.out.println(isNew(3));
         System.out.println(isNew(30));
@@ -93,18 +96,37 @@ public class Chumakov_5 {
         
         return true;
     }
+
+    
+    public static double doubleArrayMin(double[] arr){
+        double min = arr[0];
+        for (int i = 0; i<arr.length; i++){
+            if (arr[i]<min){
+                min = arr[i];
+            }
+        }
+        return min;
+    }
+
     public static String spiderVsFly(String spider, String fly) {
         int spiderX = spider.charAt(0) - 65;
         int spiderY = spider.charAt(1) - 48;
         int flyX = fly.charAt(0) - 65;
-        int flyY = fly.charAt(1) - 48; // я не знаю ак но из-за того что я сделал перевод в инт теперь вот так
+        int flyY = fly.charAt(1) - 48; 
+        
 
-        double pathCalculation1 = spiderY + flyY;
-        double pathCalculation2 = Math.abs(spiderY - flyY) * 0.85090352453;
+                                               
+
+        double pathCalculation1 = spiderY + flyY; 
+        double pathCalculation2 = Math.abs(spiderY - flyY) + ((spiderX + flyX)* flyY) ;
+        double pathCalculation3 = Math.abs(spiderY - flyY) + (Math.abs(7-spiderX - flyX) * flyY) ;
+        double pathCalculation4 = Math.abs(spiderY - flyY) + (Math.abs(spiderX - flyX)  * flyY)  ;
+    
+        double[] pathArray = {pathCalculation1, pathCalculation2, pathCalculation3,pathCalculation4};
 
         String path = "";
 
-        if (pathCalculation1 <= pathCalculation2) {
+        if (doubleArrayMin(pathArray) == pathCalculation1) {
             for (int i = 0; i < spiderY; i++) {
                 path += spider.charAt(0);
                 path += spiderY - i;
@@ -117,15 +139,47 @@ public class Chumakov_5 {
                 path += '-';
             }
         } 
-        else{
-            if ((flyX - spiderX) <= 4){
+        else if(doubleArrayMin(pathArray) == pathCalculation2){
             for (int i = 0; i < Math.abs(spiderY - flyY); i++) {
                 path += spider.charAt(0);
                 if (spiderY > flyY) path += spiderY - i;
                 else path += spiderY + i;
                 path += '-';
             }
-            for (int i = 0; i <= (spiderX + flyX) % 8; i++) {
+            for (int i = 0; i <= Math.abs(spiderX - flyX); i++) {
+                path += (char)(65 + (spiderX + i) % 8);
+                path += fly.charAt(1);
+                path += '-';
+            }
+
+        }
+        else if(doubleArrayMin(pathArray) == pathCalculation3){
+            for (int i = 0; i < Math.abs(spiderY - flyY); i++) {
+                path += spider.charAt(0);
+                if (spiderY > flyY) path += spiderY - i;
+                else path += spiderY + i;
+                path += '-';
+            }
+            for (int i = 0; i <= Math.abs(spiderX - flyX); i++) {
+                if ((spiderX + i) - 8 <= 0)  {
+                    path += (char)(65 + 8 + (spiderX - i) % 8);
+                }
+                if ((spiderX + i) - 8 > 0) {
+                    path += (char)(65 + (spiderX - i) % 8);
+                }
+                path += fly.charAt(1);
+                path += '-';
+            }
+            
+        }
+        else if(doubleArrayMin(pathArray) == pathCalculation4){
+            for (int i = 0; i < Math.abs(spiderY - flyY); i++) {
+                path += spider.charAt(0);
+                if (spiderY > flyY) path += spiderY - i;
+                else path += spiderY + i;
+                path += '-';
+            }
+            for (int i = 0; i <= Math.abs(spiderX - flyX); i++) {
                 path += (char)(65 + (spiderX + i) % 8);
                 path += fly.charAt(1);
                 path += '-';
@@ -147,9 +201,8 @@ public class Chumakov_5 {
                 path += '-';
             }
         }
-    }
-
         return path.substring(0, path.length() - 1);
+        
     }
      public static int _digitsCount(long number) {
         if (number == 0) return 0;
@@ -259,8 +312,7 @@ public class Chumakov_5 {
 
     
 
-
-    public static String timeDifference(String city1, String firstDate, String city2) {
+   public static String timeDifference(String city1, String firstDate, String city2) {
         String answer = "";
 
         int time1 = timeZone(city1);
@@ -390,25 +442,29 @@ public class Chumakov_5 {
         }
         return days;
     }
-    
 
-    public static Integer[] splitNumber(int n) {
-        ArrayList<Integer> res = new ArrayList<>();
-        while (n > 0) {
-            res.add(n % 10);
-            n /= 10;
+     public static boolean isNew(int numb) {
+        String strNumb = Integer.toString(numb);
+        int[] numbs = new int[strNumb.length()];
+        String numbWithoutZeros = strNumb.replace("0", "");
+        int[] numbsWithoutZeros = new int[numbWithoutZeros.length()];
+        int j = 0;
+        for (int i = 0; i < strNumb.length(); i++) {
+            int nowNumb = Integer.parseInt(strNumb.substring(i, i + 1));
+            if (nowNumb != 0) {
+                numbsWithoutZeros[j] = nowNumb;
+                j += 1;
+            }
+            numbs[i] = nowNumb;
         }
-        return res.toArray(new Integer[res.size()]);
+        Arrays.sort(numbs);
+        Arrays.sort(numbsWithoutZeros);
+        StringBuilder minNumb = new StringBuilder(Integer.toString(numbsWithoutZeros[0]));
+        int index = numbs.length - numbsWithoutZeros.length;
+        for (int i = 0; i < numbs.length; i++) {
+            if (i != index) minNumb.append(numbs[i]);
+        }
+        return strNumb.contentEquals(minNumb);
     }
-
-    public static boolean isNew(int n) {
-        Integer[] num = splitNumber(n);
-        for (int i = 0; i < num.length - 1; i++)
-            if (num[i] > 0 && num[i] < num[num.length - 1])
-                return false;
-        return true;
-    }
-
-
 }
 
