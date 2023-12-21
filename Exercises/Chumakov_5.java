@@ -1,10 +1,7 @@
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
 import java.util.LinkedList;
-import java.util.TimeZone;
+
 
 
 public class Chumakov_5 {
@@ -16,8 +13,12 @@ public class Chumakov_5 {
         System.out.println();
 
         System.out.println(spiderVsFly("H3", "E2"));
-        System.out.println(spiderVsFly("A4", "B2"));
-        System.out.println(spiderVsFly("A4", "C2"));
+        System.out.println(spiderVsFly("B4", "A4"));
+                System.out.println(spiderVsFly("A2", "H4"));
+
+        System.out.println(spiderVsFly("A4", "C4"));
+                System.out.println(spiderVsFly("A2", "C2"));
+
         System.out.println();
 
         System.out.println(digitsCount(4666));
@@ -99,7 +100,7 @@ public class Chumakov_5 {
         int flyY = fly.charAt(1) - 48; // я не знаю ак но из-за того что я сделал перевод в инт теперь вот так
 
         double pathCalculation1 = spiderY + flyY;
-        double pathCalculation2 = Math.abs(spiderY - flyY) + ((spiderX + flyX) % 8) * flyY * 0.76536686473;
+        double pathCalculation2 = Math.abs(spiderY - flyY) * 0.85090352453;
 
         String path = "";
 
@@ -117,6 +118,7 @@ public class Chumakov_5 {
             }
         } 
         else{
+            if ((flyX - spiderX) <= 4){
             for (int i = 0; i < Math.abs(spiderY - flyY); i++) {
                 path += spider.charAt(0);
                 if (spiderY > flyY) path += spiderY - i;
@@ -128,7 +130,24 @@ public class Chumakov_5 {
                 path += fly.charAt(1);
                 path += '-';
             }
+            }
+            else{
+            for (int i = 0; i < Math.abs(spiderY - flyY); i++) {
+                path += spider.charAt(0);
+                if (spiderY > flyY) path += spiderY - i;
+                else path += spiderY + i;
+                path += '-';
+            }
+            for (int i = 0 ; i < 9 - Math.abs(spiderX - flyX); i++){
+                if ((char)(65 + (spiderX - i)) < (char)(65)){
+                path += (char)(65 + 6  + (spiderX + i));
+                }
+                else path += (char)(65 + (spiderX + i));
+                path += fly.charAt(1);
+                path += '-';
+            }
         }
+    }
 
         return path.substring(0, path.length() - 1);
     }
@@ -143,18 +162,18 @@ public class Chumakov_5 {
 
     
 
-    public static int[] getCharset(String word) { //getCharset - метод, который создает массив из входящего слова
+    public static int[] getCharset(String word) { 
         int[] charset = new int[127];
-        for (char c : word.toCharArray()) //toCharArray()  - преобразование строки в массив
+        for (char c : word.toCharArray()) 
             charset[c]++;
         return charset;
     }
 
     public static int totalPoints(String[] words, String scramble) {
         int points = 0;
-        int[] scrambleCharset = getCharset(scramble); //посимвольный массив изначального слова
+        int[] scrambleCharset = getCharset(scramble); 
         for (int i = 0; i < words.length; i++) {
-            int[] wordCharset = getCharset(words[i]); //посимвольный массив получившегося слова
+            int[] wordCharset = getCharset(words[i]); 
             boolean good = true;
             for (int j = 0; j < 127; j++)
                 if (wordCharset[j] > scrambleCharset[j]) {
@@ -224,7 +243,7 @@ public class Chumakov_5 {
                 }
             }
         
-        return answer.toString();
+        return answer.toString().toLowerCase();
     }
     
 
@@ -240,25 +259,137 @@ public class Chumakov_5 {
 
     
 
-    public static SimpleDateFormat parseDate = new SimpleDateFormat("MMMM d, yyyy HH:mm");
-    public static SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-M-d HH:mm");
 
+    public static String timeDifference(String city1, String firstDate, String city2) {
+        String answer = "";
 
-    public static String getGMT(String city) {
-        if (city == "Los Angeles") return "GMT-08:00";
-        if (city == "New York") return "GMT-05:00";
-        if (city == "Caracas") return "GMT- 04:30";
-        if (city == "Buenos Aires") return "GMT-03:00";
-        if (city == "London") return "GMT00:00";
-        if (city == "Rome") return "GMT+01:00";
-        if (city == "Moscow") return "GMT+03:00";
-        if (city == "Tehran") return "GMT+03:30";
-        if (city == "New Delhi") return "GMT+05:30";
-        if (city == "Beijing") return "GMT+08:00";
-        if (city == "Canberra") return "GMT+10:00";
-        return "GMT";
+        int time1 = timeZone(city1);
+        int time2 = timeZone(city2);
+        int deltaTime = time2 - time1;
+        int deltaHour = deltaTime / 60;
+        int deltaMinute = deltaTime % 60;
+
+        String[] words = firstDate.split(" ");
+        int month = monthIndex(words[0]);
+        int day = Integer.parseInt(words[1].replace(",", ""));
+        int year = Integer.parseInt(words[2]);
+        String[] time = words[3].split(":");
+        int hour = Integer.parseInt(time[0]);
+        int minute = Integer.parseInt(time[1]);
+
+        int newYear = year;
+        int newMonth = month;
+        int newDay = day;
+        int newHour = hour + deltaHour;
+        int newMinute = minute + deltaMinute;
+
+        if (newMinute < 0) {
+            newMinute += 60;
+            newHour -= 1;
+        }
+        else if (newMinute >= 60) {
+            newMinute -= 60;
+            newHour += 1;
+        }
+
+        if (newHour < 0) {
+            newHour += 24;
+            newDay -= 1;
+        }
+        else if (newHour >= 24) {
+            newHour -= 24;
+            newDay += 1;
+        }
+
+        if (newDay == 0) {
+            newMonth -= 1;
+            if (newMonth == 0) {
+                newMonth = 12;
+                newYear -= 1;
+            }
+            newDay = dayInMonth(newMonth, newYear);
+        }
+        else if (newDay > dayInMonth(newMonth, newYear)) {
+            newMonth += 1;
+            if (newMonth == 13) {
+                newMonth = 1;
+                newYear += 1;
+            }
+            newDay = 1;
+        }
+
+        String strMinute;
+        if (newMinute < 10) {
+            strMinute = "0" + newMinute;
+        }
+        else {
+            strMinute = Integer.toString(newMinute);
+        }
+
+        String strHour;
+        if (newHour < 10) {
+            strHour = "0" + newHour;
+        }
+        else {
+            strHour = Integer.toString(newHour);
+        }
+        answer = newYear + "-" + newMonth + "-" + newDay + " " + strHour + ":" + strMinute;
+        return answer;
     }
 
+    public static int timeZone(String city) {
+        int time = 0;
+        switch (city) {
+            case "Los Angeles" -> time = -8 * 60;
+            case "New York" -> time = -5 * 60;
+            case "Caracas" -> time = -(4 * 60 + 30);
+            case "Buenos Aires" -> time = -3 * 60;
+            case "London" -> time = 0;
+            case "Rome" -> time = 60;
+            case "Moscow" -> time = 3 * 60;
+            case "Tehran" -> time = 3 * 60 + 30;
+            case "New Delhi" -> time = 5 * 60 + 30;
+            case "Beijing" -> time = 8 * 60;
+            case "Canberra" -> time = 10 * 60;
+        }
+        return time;
+    }
+
+    public static int monthIndex(String month) {
+        int index = 0;
+        switch (month) {
+            case "January" -> index = 1;
+            case "February" -> index = 2;
+            case "March" -> index = 3;
+            case "April" -> index = 4;
+            case "May" -> index = 5;
+            case "June" -> index = 6;
+            case "July" -> index = 7;
+            case "August" -> index = 8;
+            case "September" -> index = 9;
+            case "October" -> index = 10;
+            case "November" -> index = 11;
+            case "December" -> index = 12;
+        }
+        return index;
+    }
+
+    public static int dayInMonth(int monthIndex, int year) {
+        int days = 0;
+        switch (monthIndex) {
+            case 1, 3, 5, 7, 8, 10, 12 -> days = 31;
+            case 4, 6, 9, 11 -> days = 30;
+            case 2 -> {
+                if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) {
+                    days = 29;
+                }
+                else {
+                    days = 28;
+                }
+            }
+        }
+        return days;
+    }
     
 
     public static Integer[] splitNumber(int n) {

@@ -1,0 +1,4 @@
+[2023-11-30 15:18:19] Exception occurred: LR4.CustomDivisionException - Деление на ноль недопустимо
+[2023-11-30 15:20:07] Exception occurred: LR4.CustomDivisionException - Деление на ноль недопустимо
+[2023-11-30 15:21:07] Exception occurred: LR4.CustomDivisionException - Деление на ноль недопустимо
+[2023-11-30 15:24:16] Exception occurred: LR4.CustomDivisionException - Деление на ноль недопустимо

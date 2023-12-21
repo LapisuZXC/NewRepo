@@ -2,7 +2,9 @@ public class test {
     public static void main(String[] args) {
         Double var = 3.5;
         String str = "H3";
-        int il = str.charAt(1);
+        
+        
+        int il = str.charAt(0) - 65;
         System.out.println(var.intValue());
         System.out.println(test(3));
         System.out.println(il);
