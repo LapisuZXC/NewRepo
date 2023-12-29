@@ -36,13 +36,23 @@ public class ProductHash {
         hashTable.put("334510",toothpaste5);
         hashTable.put("144510",toothpaste5);
         hashTable.display();
-
+        System.out.println();
+        System.out.println();
+        System.out.println();
         hashTable.get("884510").displayInfo();
-
+        System.out.println();
+        System.out.println();
+        System.out.println();
         hashTable.remove("884510");
-
         hashTable.isEmpty();
+        System.out.println();
+        System.out.println();
+        System.out.println();
         System.out.println(hashTable.size());
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        hashTable.get("884510").displayInfo();
     }
     
 }

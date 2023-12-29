@@ -34,7 +34,7 @@ public class TopWords {
                 return o2.getValue() - o1.getValue();
             }
         });
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < list.size(); i++) {
             System.out.println(list.get(i)); 
         }
     }
