@@ -1,0 +1,11 @@
+Elephant 3
+Dog 3
+Cheetah 5
+Pig 5
+Lion 7
+Frog 12
+Gorilla 14
+
+Frog 12
+Gorilla 14
+

@@ -1,1 +1,7 @@
-asdf Sed edrrfg df hdfh sdff fsd as sdf sd sd gasdg sdfdf fh dfh sd hd
+Frog 12
+Elephant 3
+Cheetah 5
+Gorilla 14
+Lion 7
+Pig 5
+Dog 3
